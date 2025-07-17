@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+
+
+
+
+/**
+    The lines above are intact.
+    The lines below were added by maryUI installer.
+*/
+
+/** daisyUI */
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    prefersdark: false;
+    color-scheme: "light";
+    --color-base-100: oklch(97.788% 0.004 56.375);
+    --color-base-200: oklch(93.982% 0.007 61.449);
+    --color-base-300: oklch(91.586% 0.006 53.44);
+    --color-base-content: oklch(23.574% 0.066 313.189);
+    --color-primary: oklch(85% 0.138 181.071);
+    --color-primary-content: oklch(43% 0.078 188.216);
+    --color-secondary: oklch(89% 0.061 343.231);
+    --color-secondary-content: oklch(45% 0.187 3.815);
+    --color-accent: oklch(90% 0.076 70.697);
+    --color-accent-content: oklch(47% 0.157 37.304);
+    --color-neutral: oklch(27% 0.006 286.033);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(68% 0.169 237.323);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(69% 0.17 162.48);
+    --color-success-content: oklch(26% 0.051 172.552);
+    --color-warning: oklch(79% 0.184 86.047);
+    --color-warning-content: oklch(28% 0.066 53.813);
+    --color-error: oklch(64% 0.246 16.439);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --radius-selector: 1rem;
+    --radius-field: 2rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 2px;
+    --depth: 1;
+    --noise: 0;
+}
+
+
+@plugin "daisyui/theme" {
+    name: "dark";
+    default: false;
+    prefersdark: false;
+    color-scheme: "dark";
+    --color-base-100: oklch(13% 0.028 261.692);
+    --color-base-200: oklch(21% 0.034 264.665);
+    --color-base-300: oklch(27% 0.033 256.848);
+    --color-base-content: oklch(96% 0.003 264.542);
+    --color-primary: oklch(78% 0.115 274.713);
+    --color-primary-content: oklch(25% 0.09 281.288);
+    --color-secondary: oklch(87% 0.169 91.605);
+    --color-secondary-content: oklch(27% 0.077 45.635);
+    --color-accent: oklch(81% 0.111 293.571);
+    --color-accent-content: oklch(28% 0.141 291.089);
+    --color-neutral: oklch(21% 0.034 264.665);
+    --color-neutral-content: oklch(98% 0.002 247.839);
+    --color-info: oklch(60% 0.126 221.723);
+    --color-info-content: oklch(98% 0.019 200.873);
+    --color-success: oklch(60% 0.118 184.704);
+    --color-success-content: oklch(98% 0.014 180.72);
+    --color-warning: oklch(66% 0.179 58.318);
+    --color-warning-content: oklch(98% 0.022 95.277);
+    --color-error: oklch(58% 0.253 17.585);
+    --color-error-content: oklch(96% 0.015 12.422);
+    --radius-selector: 2rem;
+    --radius-field: 1rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 1;
+}
+
+
+/* maryUI */
+@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
+
+/* Theme toggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
+.mary-table-pagination span[aria-current="page"] > span {
+    @apply bg-primary text-base-100
+}
+
+.mary-table-pagination button {
+    @apply cursor-pointer
+}
+
+/* BRAND BACKGROUND COLORS */
+.bg-brand-50  { background-color: var(--color-brand-50); }
+.bg-brand-100 { background-color: var(--color-brand-100); }
+.bg-brand-200 { background-color: var(--color-brand-200); }
+.bg-brand-300 { background-color: var(--color-brand-300); }
+.bg-brand-400 { background-color: var(--color-brand-400); }
+.bg-brand-500 { background-color: var(--color-brand-500); }
+.bg-brand-600 { background-color: var(--color-brand-600); }
+.bg-brand-800 { background-color: var(--color-brand-800); }
+.bg-brand-950 { background-color: var(--color-brand-950); }
+
+/* BRAND TEXT COLORS */
+.text-brand-50  { color: var(--color-brand-50); }
+.text-brand-100 { color: var(--color-brand-100); }
+.text-brand-200 { color: var(--color-brand-200); }
+.text-brand-300 { color: var(--color-brand-300); }
+.text-brand-400 { color: var(--color-brand-400); }
+.text-brand-500 { color: var(--color-brand-500); }
+.text-brand-600 { color: var(--color-brand-600); }
+.text-brand-800 { color: var(--color-brand-800); }
+.text-brand-950 { color: var(--color-brand-950); }
+
+/* BRAND BORDER COLORS */
+.border-brand-50  { border-color: var(--color-brand-50); }
+.border-brand-100 { border-color: var(--color-brand-100); }
+.border-brand-200 { border-color: var(--color-brand-200); }
+.border-brand-300 { border-color: var(--color-brand-300); }
+.border-brand-400 { border-color: var(--color-brand-400); }
+.border-brand-500 { border-color: var(--color-brand-500); }
+.border-brand-600 { border-color: var(--color-brand-600); }
+.border-brand-800 { border-color: var(--color-brand-800); }
+.border-brand-950 { border-color: var(--color-brand-950); }
+
+.EasyMDEContainer .CodeMirror {
+    @apply bg-base-100 text-base-content
+}
+
+.EasyMDEContainer .CodeMirror {
+    @apply bg-base-100 text-base-content
+}
+
+.EasyMDEContainer .CodeMirror-cursor {
+    @apply border border-b-base-100
+}
+
+.EasyMDEContainer .editor-toolbar > button:hover, .EasyMDEContainer .editor-toolbar > .active {
+    @apply bg-base-100 text-base-content
+}
+
+.EasyMDEContainer h1 {
+    @apply text-4xl font-bold mb-5
+}
+
+.EasyMDEContainer h2 {
+    @apply text-2xl font-bold mb-3
+}
+
+.EasyMDEContainer h3 {
+    @apply text-lg font-bold mb-3
+}

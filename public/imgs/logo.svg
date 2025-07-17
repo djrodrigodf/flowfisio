@@ -1,0 +1,22 @@
+<svg width="300" height="100" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+    <style>
+        :root {
+        --flow-color: #0097a7;
+        --fisio-color: #ff9800;
+        --text-color: #333333;
+        }
+        @media (prefers-color-scheme: dark) {
+        :root {
+        --flow-color: #80deea;
+        --fisio-color: #ffcc80;
+        --text-color: #ffffff;
+        }
+        }
+    </style>
+
+    <text x="30" y="90" font-size="60" font-weight="bold">
+        <tspan fill="var(--flow-color)">Flow</tspan>
+        <tspan fill="var(--fisio-color)">Fisio</tspan>
+    </text>
+    <text x="32" y="135" font-size="28" fill="var(--text-color)">sistema de fisioterapia</text>
+</svg>
