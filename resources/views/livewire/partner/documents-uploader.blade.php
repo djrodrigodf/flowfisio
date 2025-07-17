@@ -62,7 +62,6 @@
                 icon="fas.download"
                 class="btn-soft btn-sm"
                 link="{{ $doc->getUrl() }}"
-                target="_blank"
                 tooltip-left="Download"
             />
             <x-button
