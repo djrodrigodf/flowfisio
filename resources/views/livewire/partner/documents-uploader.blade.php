@@ -68,6 +68,7 @@
             <x-button
                 icon="fas.trash"
                 class="btn-error btn-sm"
+                external="true"
                 wire:click="removeDocument({{ $doc->id }})"
                 tooltip-left="Excluir"
             />
