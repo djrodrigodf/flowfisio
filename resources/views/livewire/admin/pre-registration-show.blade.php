@@ -1,61 +1,80 @@
 <div class="p-6 space-y-6"
      x-data="{
-        transcrever(blob) {
-            const mimeType = blob.type || 'audio/webm';
-            const ext = mimeType.split('/')[1] || 'webm';
-            const filename = `gravacao_${Date.now()}.${ext}`;
+    recorder: null,
+    chunks: [],
+    isRecording: false,
 
-            const file = new File([blob], filename, { type: mimeType });
+    transcrever(blob) {
+        const mimeType = blob.type || 'audio/webm';
+        const ext = mimeType.split('/')[1] || 'webm';
+        const filename = `gravacao_${Date.now()}.${ext}`;
+        const file = new File([blob], filename, { type: mimeType });
 
-            const formData = new FormData();
-            formData.append('audio', file);
-            formData.append('paciente_id', '{{ $preRegistration->id }}');
-            fetch('{{ route('admin.whisper.transcribe') }}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.text) {
+        const formData = new FormData();
+        formData.append('audio', file);
+        formData.append('paciente_id', '{{ $preRegistration->id }}');
 
+        fetch('{{ route('admin.whisper.transcribe') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.text) {
                 const textarea = document.querySelector(`textarea[wire\\:model\\.live='transcricao']`);
-        textarea.value = data.text;
+                textarea.value = data.text;
+                const componentEl = textarea.closest('[wire\\:id]');
+                const componentId = componentEl.getAttribute('wire:id');
+                Livewire.find(componentId).set('transcricao', data.text);
+                Livewire.find(componentId).call('salvarTranscricao');
+                window.dispatchEvent(new CustomEvent('toast', {
+                    detail: { type: 'success', message: 'Transcrição feita com sucesso!' }
+                }));
+            } else {
+                window.dispatchEvent(new CustomEvent('toast', {
+                    detail: { type: 'error', message: 'Erro na transcrição.' }
+                }));
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            window.dispatchEvent(new CustomEvent('toast', {
+                detail: { type: 'error', message: 'Erro inesperado ao transcrever.' }
+            }));
+        });
+    },
 
-        const componentEl = textarea.closest('[wire\\:id]');
-        const componentId = componentEl.getAttribute('wire:id');
+    startRecording() {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            this.recorder = new MediaRecorder(stream);
+            this.chunks = [];
 
-        Livewire.find(componentId).set('transcricao', data.text);
-        Livewire.find(componentId).call('salvarTranscricao');
-                alert('✅ Transcrição feita com sucesso!');
-                } else {
-                alert('❌ Erro na transcrição.');
-                }
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('❌ Erro inesperado.');
-            });
-        },
-        startRecording() {
-            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-                const recorder = new MediaRecorder(stream);
-                const chunks = [];
+            this.recorder.ondataavailable = e => this.chunks.push(e.data);
+            this.recorder.onstop = () => {
+                const blob = new Blob(this.chunks, { type: 'audio/webm' });
+                this.transcrever(blob);
+                this.isRecording = false;
+            };
 
-                recorder.ondataavailable = e => chunks.push(e.data);
-                recorder.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'audio/webm' });
-                    this.transcrever(blob);
-                };
+            this.recorder.start();
+            this.isRecording = true;
+        }).catch(err => {
+            console.error('Erro ao iniciar gravação:', err);
+            window.dispatchEvent(new CustomEvent('toast', {
+                detail: { type: 'error', message: 'Permissão de microfone negada ou erro inesperado.' }
+            }));
+        });
+    },
 
-                recorder.start();
-                alert('🎙️ Gravando por 10 segundos...');
-                setTimeout(() => recorder.stop(), 1000);
-            });
+    stopRecording() {
+        if (this.recorder && this.isRecording) {
+            this.recorder.stop();
         }
-     }">
+    }
+}">
 
 
     <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
@@ -164,10 +183,21 @@
 
     <div class="flex flex-col gap-4">
         <div class="md:flex grid gap-4">
-            <x-button class="btn-dash w-fit" @click="startRecording">
-                <x-icon name="fas.microphone" class="mr-2"/>
-                Gravar Conversa
-            </x-button>
+            <div class="flex flex-col md:flex-row gap-4">
+                <template x-if="!isRecording">
+                    <x-button class="btn-dash w-fit" @click="startRecording">
+                        <x-icon name="fas.microphone" class="mr-2" />
+                        Iniciar Gravação
+                    </x-button>
+                </template>
+
+                <template x-if="isRecording">
+                    <x-button class="btn-dash btn-error w-fit" @click="stopRecording">
+                        <x-icon name="fas.stop" class="mr-2" />
+                        Parar Gravação
+                    </x-button>
+                </template>
+            </div>
 
             @if($preRegistration->anamnese_gerada)
                 <x-button class="btn-dash btn-success w-fit" wire:click="concluir">
