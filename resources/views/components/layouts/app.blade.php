@@ -73,6 +73,47 @@
                 <x-menu-sub title="Configuração" icon="fas.cogs">
                     <x-menu-item title="Categoria Documentos" icon="fas.user-tag" link="{{route('admin.admin.document-categories')}}" />
                 </x-menu-sub>
+
+                {{-- === Pacientes === --}}
+                <x-menu-sub title="Pacientes" icon="fas.user-injured">
+                    <x-menu-item title="Lista" icon="fas.list" link="{{ route('admin.patients.index') }}" />
+                    <x-menu-item title="Novo cadastro" icon="fas.user-plus" link="{{ route('admin.patients.create') }}" />
+                </x-menu-sub>
+
+                {{-- === Agenda / Atendimentos === --}}
+                <x-menu-sub title="Agenda" icon="fas.calendar-days">
+
+                    <x-menu-item title="Agendar" icon="fas.calendar-check" link="{{ route('admin.appointments.new') }}" />
+                    <x-menu-item icon="fas.calendar-days" title="Lista" link="{{ route('admin.appointments.lista') }}" />
+                    <x-menu-item title="Calendário" icon="fas.calendar-check" link="{{ route('admin.appointments.calendar') }}" />
+                    <x-menu-item title="Atendimentos" icon="fas.table-list" link="{{ route('admin.appointments.index') }}" />
+                    <x-menu-item title="Presenças" icon="fas.user-check" link="{{ route('admin.attendance.board') }}" />
+                    <x-menu-item title="Reagendamentos" icon="fas.right-left" link="{{ route('admin.reschedule.board') }}" />
+                </x-menu-sub>
+
+                {{-- === Financeiro === --}}
+                <x-menu-sub title="Financeiro" icon="fas.wallet">
+                    <x-menu-item title="Pagamentos" icon="fas.money-bill-wave" link="{{ route('admin.payments.index') }}" />
+                    <x-menu-item title="Repasses" icon="fas.hand-holding-usd" link="{{ route('admin.payouts.index') }}" />
+                    <x-menu-item title="Rel. Financeiros" icon="fas.file-invoice-dollar" link="{{ route('admin.reports.finance') }}" />
+                </x-menu-sub>
+
+                {{-- === Produção / BI === --}}
+                <x-menu-sub title="BI & Produção" icon="fas.chart-line">
+                    <x-menu-item title="Dashboard BI" icon="fas.chart-pie" link="{{ route('admin.bi.dashboard') }}" />
+                    <x-menu-item title="Rel. Operacionais" icon="fas.clipboard-list" link="{{ route('admin.reports.operational') }}" />
+                </x-menu-sub>
+
+                {{-- === Cadastros === --}}
+                <x-menu-sub title="Cadastros" icon="fas.toolbox">
+                    <x-menu-item title="Tratamentos" icon="fas.briefcase-medical" link="{{ route('admin.treatments.index') }}" />
+                    <x-menu-item title="Tabelas de Preço/Repasse" icon="fas.tags" link="{{ route('admin.treatments.tables') }}" />
+                    <x-menu-item title="Convênios" icon="fas.id-card" link="{{ route('admin.insurances.index') }}" />
+                    <x-menu-item title="Unidades" icon="fas.building" link="{{ route('admin.locations.index') }}" />
+                    <x-menu-item title="Salas" icon="fas.chair" link="{{ route('admin.rooms.index') }}" />
+                    <x-menu-item title="Restrições" icon="fas.ban" link="{{ route('admin.restrictions.index') }}" />
+                    <x-menu-item title="Feriados" icon="fas.calendar-xmark" link="{{ route('admin.holidays.index') }}" />
+                </x-menu-sub>
             </x-menu>
         </x-slot:sidebar>
 

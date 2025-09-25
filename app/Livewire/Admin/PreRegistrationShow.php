@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin;
 
 use App\Models\PreRegistration;
-use App\Services\AnamneseService;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Mary\Traits\Toast;
@@ -11,10 +10,15 @@ use Mary\Traits\Toast;
 class PreRegistrationShow extends Component
 {
     use Toast;
+
     public PreRegistration $preRegistration;
+
     public ?string $anamnese = null;
+
     public bool $loading = false;
+
     public string $gravacao = '';
+
     public string $anamneseGerada = '';
 
     protected $listeners = ['transcricaoPronta' => 'setTranscricao'];
@@ -39,7 +43,8 @@ class PreRegistrationShow extends Component
         }
     }
 
-    public function concluir() {
+    public function concluir()
+    {
         $this->preRegistration->update([
             'status' => 'concluido',
         ]);
@@ -77,8 +82,9 @@ class PreRegistrationShow extends Component
     {
         $media = $this->preRegistration->getMedia('anamnese')->firstWhere('id', $mediaId);
 
-        if (!$media || !file_exists($media->getPath())) {
+        if (! $media || ! file_exists($media->getPath())) {
             $this->dispatch('toast')->to('Erro: gravação não encontrada.');
+
             return;
         }
 

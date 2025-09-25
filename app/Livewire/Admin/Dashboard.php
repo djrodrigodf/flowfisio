@@ -8,8 +8,11 @@ use Livewire\Component;
 class Dashboard extends Component
 {
     public array $chartCadastro = [];
+
     public string $mesSelecionado; // formato: '2024-07'
+
     public array $mesesDisponiveis = [];
+
     public array $chartStatusPreCadastro = [];
 
     public function mount()
@@ -17,9 +20,9 @@ class Dashboard extends Component
         $preCadastrosPorDia = PreRegistration::query()
             ->whereDate('created_at', '>=', now()->subDays(6))
             ->get()
-            ->groupBy(fn($item) => $item->created_at->format('d/m'))
+            ->groupBy(fn ($item) => $item->created_at->format('d/m'))
             ->sortKeys() // garante ordem correta
-            ->map(fn($group) => $group->count());
+            ->map(fn ($group) => $group->count());
 
         $this->chartCadastro = [
             'type' => 'bar',
@@ -36,20 +39,19 @@ class Dashboard extends Component
         // Formato inicial: mês atual
         $this->mesSelecionado = now()->format('Y-m');
 
-// Buscar todos os meses com dados
+        // Buscar todos os meses com dados
         $this->mesesDisponiveis = PreRegistration::query()
             ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as mes, DATE_FORMAT(created_at, "%m/%Y") as label')
             ->groupBy('mes', 'label')
             ->orderByDesc('mes')
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'id' => $item->mes,
                 'name' => $item->label,
             ])
             ->toArray();
 
         $this->atualizarGraficoStatus();
-
 
     }
 
@@ -77,8 +79,8 @@ class Dashboard extends Component
                         $statusCounts['concluido'] ?? 0,
                     ],
                     'backgroundColor' => ['#fbbf24', '#3b82f6', '#ef4444', '#22c55e'],
-                ]]
-            ]
+                ]],
+            ],
         ];
     }
 

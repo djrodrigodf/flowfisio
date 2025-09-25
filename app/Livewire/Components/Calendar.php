@@ -10,20 +10,27 @@ use Livewire\Component;
 class Calendar extends Component
 {
     public array $events = [];
-    public $selectedDate;
-    public $selectedWeek;
-    public \Illuminate\Support\Collection $weekDays;
-    public \Illuminate\Support\Collection $slots;
-    public $professionals = [];
-    public ?int $selectedProfessional = null;
-    public string $viewMode = 'week'; // 'day' or 'week'
 
+    public $selectedDate;
+
+    public $selectedWeek;
+
+    public \Illuminate\Support\Collection $weekDays;
+
+    public \Illuminate\Support\Collection $slots;
+
+    public $professionals = [];
+
+    public ?int $selectedProfessional = null;
+
+    public string $viewMode = 'week'; // 'day' or 'week'
 
     public function updatedSelectedProfessional($value)
     {
         $this->selectedProfessional = $value;
         $this->loadDate($this->selectedDate);
     }
+
     protected function toJsEvents(): string
     {
         return json_encode($this->events);
@@ -46,7 +53,7 @@ class Calendar extends Component
     public function updatedSelectedDate($value)
     {
 
-        $this->selectedDate = Carbon::parse($value)->format("Y-m-d");
+        $this->selectedDate = Carbon::parse($value)->format('Y-m-d');
         $this->selectedDate = now()->startOfWeek()->format('Y-m-d');
         $this->loadDate($this->selectedDate);
     }
@@ -60,11 +67,13 @@ class Calendar extends Component
         $this->loadDate($startOfWeek);
     }
 
-    public function redirecionar($id) {
+    public function redirecionar($id)
+    {
         $this->redirect(route('admin.pre-registration.show', $id['id']));
     }
 
-    public function mount() {
+    public function mount()
+    {
 
         $this->professionals = Partner::whereHas('role', function ($query) {
             $query->where('is_specialty', true);
@@ -116,7 +125,7 @@ class Calendar extends Component
             $this->weekDays = collect([Carbon::parse($startDate)]);
         } else {
             $startOfWeek = Carbon::parse($startDate)->startOfWeek();
-            $this->weekDays = collect(range(1, 5))->map(fn($i) => $startOfWeek->copy()->addDays($i));
+            $this->weekDays = collect(range(1, 5))->map(fn ($i) => $startOfWeek->copy()->addDays($i));
         }
 
         // Slots de 40min entre 08h e 18h, sem 12h-14h
@@ -125,6 +134,7 @@ class Calendar extends Component
         while ($current->lessThan(Carbon::createFromTime(18, 0))) {
             if ($current->between(Carbon::createFromTime(12, 0), Carbon::createFromTime(13, 59), false)) {
                 $current->addMinutes(40);
+
                 continue;
             }
             $this->slots->push($current->copy());

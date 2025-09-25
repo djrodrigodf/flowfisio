@@ -6,45 +6,71 @@ use App\Models\PreRegistration;
 use App\Models\PreRegistrationLink;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
-use Illuminate\Support\Facades\Validator;
 
 class PreCadastro extends Component
 {
     public string $token;
+
     public ?PreRegistrationLink $link = null;
 
     public int $step = 1;
 
     // Etapa 1: Criança
     public string $child_name = '';
+
     public string $child_birthdate = '';
+
     public string $child_gender = '';
+
     public string $child_cpf = '';
+
     public ?string $child_sus = null;
+
     public ?string $child_nationality = null;
+
     public string $child_address = '';
+
     public ?string $child_residence_type = null;
+
     public ?string $child_phone = null;
+
     public string $child_cellphone = '';
+
     public ?string $child_school = null;
+
     public bool $has_other_clinic = false;
+
     public bool $has_other_residence = false;
+
     public ?string $other_clinic_info = null;
+
     public string $care_type = '';
 
     // Etapa 2: Responsável
     public string $responsible_name = '';
+
     public string $responsible_kinship = '';
+
     public ?string $responsible_birthdate = null;
+
     public ?string $responsible_nationality = null;
+
     public string $responsible_cpf = '';
+
     public string $responsible_rg = '';
+
     public ?string $responsible_profession = null;
+
     public string $responsible_phones = '';
+
     public string $responsible_email = '';
+
     public string $responsible_address = '';
+
     public ?string $responsible_residence_type = '';
+
     public bool $authorized_to_pick_up = false;
+
     public bool $is_financial_responsible = false;
 
     public function mount(string $token)
@@ -102,7 +128,6 @@ class PreCadastro extends Component
 
         $this->step = 99;
 
-
     }
 
     public function rulesStep1(): array
@@ -132,23 +157,23 @@ class PreCadastro extends Component
             'enteado' => 'Enteado(a)',
             'outro' => 'Outro',
             'responsavel_legal' => 'Responsável Legal',
-        ])->map(fn($name, $id) => ['id' => $id, 'name' => $name])->values()->toArray();
+        ])->map(fn ($name, $id) => ['id' => $id, 'name' => $name])->values()->toArray();
     }
 
     public function rulesStep2(): array
     {
         return [
-            'responsible_name'     => 'required|string',
-            'responsible_kinship'  => 'required|string',
-            'responsible_cpf'      => 'required|string|size:14',
-            'responsible_rg'       => 'required|string',
-            'responsible_phones'   => 'required|string',
-            'responsible_email'    => 'required|email',
+            'responsible_name' => 'required|string',
+            'responsible_kinship' => 'required|string',
+            'responsible_cpf' => 'required|string|size:14',
+            'responsible_rg' => 'required|string',
+            'responsible_phones' => 'required|string',
+            'responsible_email' => 'required|email',
             'responsible_residence_type' => [
                 Rule::requiredIf($this->has_other_residence),
                 'string',
             ],
-            'responsible_address'  => [
+            'responsible_address' => [
                 Rule::requiredIf($this->has_other_residence),
                 'string',
             ],
@@ -159,8 +184,8 @@ class PreCadastro extends Component
     public function render()
     {
         return view('livewire.public.pre-cadastro',
-        [
-            'kinshipOptions' => $this->getKinshipOptions(),
-        ])->layout('components.layouts.appNoSideBar');
+            [
+                'kinshipOptions' => $this->getKinshipOptions(),
+            ])->layout('components.layouts.appNoSideBar');
     }
 }

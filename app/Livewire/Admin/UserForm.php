@@ -3,20 +3,22 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
-use Livewire\Component;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class UserForm extends Component
 {
     public ?User $user = null;
+
     public string $name = '';
+
     public string $email = '';
+
     public string $password = '';
+
     public array $roles = [];
-
-
 
     public function mount(?int $id = null): void
     {

@@ -10,14 +10,14 @@ class WhisperController
 {
     public function transcribe(Request $request)
     {
-        if (!$request->hasFile('audio')) {
+        if (! $request->hasFile('audio')) {
             return response()->json(['error' => 'No audio file found'], 422);
         }
 
         $file = $request->file('audio');
         $preRegistration = PreRegistration::findOrFail($request->get('paciente_id'));
 
-        $baseName = 'anamnese_' . now()->format('Ymd_His');
+        $baseName = 'anamnese_'.now()->format('Ymd_His');
         $extension = $file->getClientOriginalExtension();
 
         // Salva o áudio via Spatie Media Library
@@ -29,7 +29,7 @@ class WhisperController
         // Obtém o caminho real do arquivo salvo
         $audioPath = $media->getPath();
 
-        if (!file_exists($audioPath)) {
+        if (! file_exists($audioPath)) {
             return response()->json(['error' => 'Arquivo de áudio salvo não encontrado.'], 500);
         }
 

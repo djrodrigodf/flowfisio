@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PreAppointment extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'pre_registration_id',
         'date',
@@ -26,4 +27,3 @@ class PreAppointment extends Model
         return $this->belongsTo(PreRegistration::class, 'pre_registration_id');
     }
 }
-

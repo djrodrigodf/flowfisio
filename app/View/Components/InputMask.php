@@ -35,7 +35,7 @@ class InputMask extends Component
         public ?bool $omitError = false,
         public ?bool $firstErrorOnly = false,
     ) {
-        $this->uuid = "mary" . md5(serialize($this)) . $id;
+        $this->uuid = 'mary'.md5(serialize($this)).$id;
     }
 
     public function modelName(): ?string
@@ -63,8 +63,8 @@ class InputMask extends Component
         return json_encode([
             'init' => true,
             'maskOpts' => [
-                'locales' => $this->locale
-            ]
+                'locales' => $this->locale,
+            ],
         ]);
     }
 

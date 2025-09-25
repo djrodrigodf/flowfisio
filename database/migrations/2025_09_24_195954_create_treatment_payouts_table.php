@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class() extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('treatment_payouts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('treatment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('insurance_id')->nullable()->constrained()->nullOnDelete(); // null = particular
+            $table->enum('mode', ['fixed', 'percent']); // fixo ou percentual
+            $table->decimal('value', 10, 2); // se percent, usar como percentual (ex.: 40.00 = 40%)
+            $table->date('starts_at');
+            $table->date('ends_at')->nullable();
+            $table->timestamps();
+
+            $table->index(['treatment_id', 'insurance_id', 'starts_at']);
+            $table->index(['treatment_id', 'insurance_id', 'ends_at']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('treatment_payouts');
+    }
+};

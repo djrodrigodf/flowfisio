@@ -26,7 +26,7 @@ class GroupCustom extends Component
         public ?bool $omitError = false,
         public ?bool $firstErrorOnly = false,
     ) {
-        $this->uuid = "mary" . md5(serialize($this)) . $id;
+        $this->uuid = 'mary'.md5(serialize($this)).$id;
     }
 
     public function modelName(): ?string

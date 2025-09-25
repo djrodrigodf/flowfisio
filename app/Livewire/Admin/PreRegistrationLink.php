@@ -3,15 +3,17 @@
 namespace App\Livewire\Admin;
 
 use App\Models\PreRegistrationLink as PreRegistrationLinkModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class PreRegistrationLink extends Component
 {
     public string $type;
+
     public string $specialty;
+
     public ?string $generatedLink = null;
 
     public array $tiposAgendamento = [
@@ -62,4 +64,3 @@ class PreRegistrationLink extends Component
         return view('livewire.admin.pre-registration-link');
     }
 }
-

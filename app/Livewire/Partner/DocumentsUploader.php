@@ -11,12 +11,16 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class DocumentsUploader extends Component
 {
-    use WithFileUploads, Toast;
+    use Toast, WithFileUploads;
 
     public Partner $partner;
+
     public ?int $document_category_id = null;
+
     public ?string $description = null;
+
     public $file;
+
     public ?int $filterCategory = null;
 
     public array $headers = [
@@ -45,7 +49,8 @@ class DocumentsUploader extends Component
             });
     }
 
-    public function sendFile() {
+    public function sendFile()
+    {
 
         $this->validate();
 

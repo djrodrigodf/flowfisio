@@ -20,4 +20,3 @@ class PreRegistrationEmergencyContactFactory extends Factory
         ];
     }
 }
-

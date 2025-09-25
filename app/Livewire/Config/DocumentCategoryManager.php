@@ -11,8 +11,11 @@ class DocumentCategoryManager extends Component
     use Toast;
 
     public $categories;
+
     public $name = '';
+
     public $categoryId = null;
+
     public $showModal = false;
 
     protected $rules = [

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\PreRegistrationAdditionalResponsible;
 use App\Models\PreRegistration;
+use App\Models\PreRegistrationAdditionalResponsible;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PreRegistrationAdditionalResponsibleFactory extends Factory
@@ -21,4 +21,3 @@ class PreRegistrationAdditionalResponsibleFactory extends Factory
         ];
     }
 }
-

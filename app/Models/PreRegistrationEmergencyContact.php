@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PreRegistrationEmergencyContact extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'pre_registration_id',
         'name',

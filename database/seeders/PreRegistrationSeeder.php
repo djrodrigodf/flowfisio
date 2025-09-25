@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-
-use App\Models\PreRegistrationAdditionalResponsible;
-use Illuminate\Database\Seeder;
-use App\Models\PreRegistration;
-use App\Models\PreRegistrationEmergencyContact;
-
 use App\Models\PreAppointment;
+use App\Models\PreRegistration;
+use App\Models\PreRegistrationAdditionalResponsible;
+use App\Models\PreRegistrationEmergencyContact;
+use Illuminate\Database\Seeder;
 
 class PreRegistrationSeeder extends Seeder
 {

@@ -8,6 +8,7 @@ use Livewire\Component;
 class PreRegistrationFicha extends Component
 {
     public ?int $id = null;
+
     public ?PreRegistration $registration = null;
 
     public function mount($id)
@@ -15,11 +16,10 @@ class PreRegistrationFicha extends Component
         $this->id = $id;
         $this->registration = PreRegistration::with(['link', 'additionalResponsibles'])->findOrFail($id);
     }
+
     public bool $showModalFicha = false;
 
-
     protected $listeners = ['abrirFicha'];
-
 
     public function render()
     {

@@ -2,13 +2,10 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\PreRegistration;
 use Livewire\Component;
 
 class PreRegistrationCalendar extends Component
 {
-
-
     public function render()
     {
 

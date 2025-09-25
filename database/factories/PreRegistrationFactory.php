@@ -45,4 +45,3 @@ class PreRegistrationFactory extends Factory
         ];
     }
 }
-

@@ -89,6 +89,28 @@
             <div class="grid md:grid-cols-1 gap-4 mb-4">
                 <x-checkbox label="Anamnese" wire:model="partner.is_anamnese" />
             </div>
+
+                <div class="grid md:grid-cols-1 gap-4 mb-4">
+                    <x-choices-offline
+                        label="Unidades (pode escolher várias)"
+                        wire:model.defer="location_ids"
+                        :options="$locOptions"
+                        multiple
+                        search
+                        clearable
+                    />
+                </div>
+
+                <div class="grid md:grid-cols-1 gap-4 mb-4">
+                    <x-choices-offline
+                        label="Tratamentos que este parceiro oferece"
+                        wire:model="treatment_ids"
+                        :options="$treatOptions"
+                        multiple
+                        search
+                        clearable
+                    />
+                </div>
             @endif
 
             <div class="grid md:grid-cols-2 gap-4 mb-4">

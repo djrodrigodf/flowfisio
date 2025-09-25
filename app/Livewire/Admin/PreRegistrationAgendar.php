@@ -13,13 +13,19 @@ class PreRegistrationAgendar extends Component
     use Toast;
 
     public ?int $id = null;
+
     public ?PreRegistration $registration = null;
+
     public string $scheduled_at = '';
 
     public bool $showAgendarModal = false;
+
     public string $selectedDate = '';
+
     public string $selectedTime = '';
+
     public array $availableTimes = [];
+
     public $professional_id;
 
     public $profissionaisAnamnese;
@@ -32,8 +38,9 @@ class PreRegistrationAgendar extends Component
 
     public function updatedSelectedDate()
     {
-        if (!$this->selectedDate) {
+        if (! $this->selectedDate) {
             $this->availableTimes = [];
+
             return;
         }
 
@@ -44,14 +51,15 @@ class PreRegistrationAgendar extends Component
             ->where('day_of_week', $dayOfWeek)
             ->first();
 
-        if (!$schedule) {
+        if (! $schedule) {
             $this->availableTimes = [];
+
             return;
         }
 
         // Gera intervalos de 40min
-        $start = \Carbon\Carbon::parse($this->selectedDate . ' ' . $schedule->start_time);
-        $end = \Carbon\Carbon::parse($this->selectedDate . ' ' . $schedule->end_time);
+        $start = \Carbon\Carbon::parse($this->selectedDate.' '.$schedule->start_time);
+        $end = \Carbon\Carbon::parse($this->selectedDate.' '.$schedule->end_time);
 
         $allTimes = [];
         while ($start->lt($end)) {
@@ -87,7 +95,7 @@ class PreRegistrationAgendar extends Component
     {
         $this->validate([
             'selectedDate' => 'required|date',
-            'selectedTime' => 'required'
+            'selectedTime' => 'required',
         ]);
 
         $datetime = \Carbon\Carbon::createFromFormat('Y-m-d H:i', "{$this->selectedDate} {$this->selectedTime}");

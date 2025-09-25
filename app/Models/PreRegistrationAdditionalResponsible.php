@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PreRegistrationAdditionalResponsible extends Model
 {
     use HasFactory;
+
     protected $table = 'pre_reg_additional_responsibles';
 
     protected $fillable = [
@@ -24,4 +25,3 @@ class PreRegistrationAdditionalResponsible extends Model
         return $this->belongsTo(PreRegistration::class, 'pre_registration_id');
     }
 }
-

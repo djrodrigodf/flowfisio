@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 class Partner extends Model implements HasMedia
 {
     use InteractsWithMedia;
+
     protected $fillable = [
         'name',
         'role_id',
@@ -23,6 +24,7 @@ class Partner extends Model implements HasMedia
     ];
 
     protected $with = ['role'];
+
     protected $casts = [
         'birth_date' => 'date',
     ];
@@ -41,5 +43,15 @@ class Partner extends Model implements HasMedia
     public function getProfilePhotoUrlAttribute()
     {
         return $this->getFirstMediaUrl('profile') ?: null;
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'partner_location')->withTimestamps();
+    }
+
+    public function treatments()
+    {
+        return $this->belongsToMany(Treatment::class, 'partner_treatment')->withTimestamps();
     }
 }

@@ -25,4 +25,3 @@ class PreAppointmentFactory extends Factory
         ];
     }
 }
-

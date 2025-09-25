@@ -3,29 +3,35 @@
 namespace App\Livewire\Admin;
 
 use App\Models\PreRegistration;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Mary\Traits\Toast;
-use Livewire\Attributes\On;
 
 class PreRegistrationList extends Component
 {
-    use WithPagination, Toast;
+    use Toast, WithPagination;
 
     public string $search = '';
+
     public $filterStatus;
+
     public string $filterSpecialty = '';
+
     public array $sortBy = [
         'column' => 'created_at',
         'direction' => 'desc',
     ];
 
     protected $listeners = ['abrirFicha', 'fecharAgendamento'];
-    public bool $showFichaModal = false;
-    public ?int $selectedId = null;
-    public bool $showAgendamentoModal = false;
-    public int $agendamentoId = 0;
 
+    public bool $showFichaModal = false;
+
+    public ?int $selectedId = null;
+
+    public bool $showAgendamentoModal = false;
+
+    public int $agendamentoId = 0;
 
     public function abrirFicha($id)
     {
@@ -39,7 +45,6 @@ class PreRegistrationList extends Component
         $this->agendamentoId = $id;
         $this->showAgendamentoModal = true;
     }
-
 
     public function fecharAgendamento()
     {
@@ -77,17 +82,16 @@ class PreRegistrationList extends Component
     {
         $query = PreRegistration::query()
             ->with('link')
-            ->when(!empty($this->filterStatus), fn($q) => $q->where('status', $this->filterStatus))
-            ->when($this->filterSpecialty, fn($q) => $q->whereHas('link', fn($q) => $q->where('specialty', $this->filterSpecialty)))
-            ->when($this->search, fn($q) =>
-            $q->where('child_name', 'like', '%' . $this->search . '%')
-                ->orWhere('responsible_name', 'like', '%' . $this->search . '%')
+            ->when(! empty($this->filterStatus), fn ($q) => $q->where('status', $this->filterStatus))
+            ->when($this->filterSpecialty, fn ($q) => $q->whereHas('link', fn ($q) => $q->where('specialty', $this->filterSpecialty)))
+            ->when($this->search, fn ($q) => $q->where('child_name', 'like', '%'.$this->search.'%')
+                ->orWhere('responsible_name', 'like', '%'.$this->search.'%')
             )
             ->orderBy(...array_values($this->sortBy));
 
         $results = $query->paginate(10);
 
-        $specialties = PreRegistration::with('link')->get()->pluck('link.specialty')->unique()->values()->filter()->map(fn($s) => ['id' => $s, 'name' => $s]);
+        $specialties = PreRegistration::with('link')->get()->pluck('link.specialty')->unique()->values()->filter()->map(fn ($s) => ['id' => $s, 'name' => $s]);
 
         return view('livewire.admin.pre-registration-list', [
             'preRegistrations' => $results,
@@ -98,7 +102,7 @@ class PreRegistrationList extends Component
 
     private function statusColor(string $status): string
     {
-        return match($status) {
+        return match ($status) {
             'aguardando' => 'badge-warning',
             'agendado' => 'badge-success',
             'cancelado' => 'badge-soft',

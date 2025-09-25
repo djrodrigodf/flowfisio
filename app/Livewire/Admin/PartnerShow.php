@@ -8,6 +8,7 @@ use Livewire\Component;
 class PartnerShow extends Component
 {
     public Partner $partner;
+
     public array $daysOfWeek = [];
 
     public array $headers = [
@@ -35,6 +36,6 @@ class PartnerShow extends Component
     public function render()
     {
         return view('livewire.admin.partner-show')
-            ->title("Detalhes do Parceiro");
+            ->title('Detalhes do Parceiro');
     }
 }

@@ -11,8 +11,11 @@ class UserList extends Component
     use WithPagination;
 
     public string $search = '';
+
     public $perPage = 10;
+
     public $page = 1;
+
     protected $queryString = ['page'];
 
     public function getPropertyHeaders(): array
@@ -29,12 +32,10 @@ class UserList extends Component
     {
         $users = User::query()
             ->with('roles')
-            ->when($this->search, fn ($q) =>
-            $q->where('name', 'like', "%{$this->search}%")
+            ->when($this->search, fn ($q) => $q->where('name', 'like', "%{$this->search}%")
                 ->orWhere('email', 'like', "%{$this->search}%")
             )
             ->paginate($this->perPage);
-
 
         return view('livewire.admin.user-list', [
             'users' => $users,
@@ -42,4 +43,3 @@ class UserList extends Component
         ]);
     }
 }
-

@@ -25,8 +25,6 @@ class AnamneseService
                 'temperature' => 0.4,
             ]);
 
-
         return $response->json('choices.0.message.content') ?? '❌ Erro ao gerar anamnese.';
     }
 }
-

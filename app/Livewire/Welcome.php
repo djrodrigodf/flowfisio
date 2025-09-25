@@ -137,7 +137,7 @@ class Welcome extends Component
         ])
             ->sortBy([[...array_values($this->sortBy)]])
             ->when($this->search, function (Collection $collection) {
-                return $collection->filter(fn(array $item) => str($item['name'])->contains($this->search, true));
+                return $collection->filter(fn (array $item) => str($item['name'])->contains($this->search, true));
             });
     }
 
@@ -145,7 +145,7 @@ class Welcome extends Component
     {
         return view('livewire.welcome', [
             'users' => $this->users(),
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
         ]);
     }
 }

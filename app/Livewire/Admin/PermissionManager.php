@@ -4,17 +4,23 @@ namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use Mary\Traits\Toast;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionManager extends Component
 {
     use Toast;
+
     public ?string $selectedRole = null;
+
     public array $permissions = [];
+
     public $roles;
+
     public $permissao = '';
+
     public $allPermissions = [];
+
     public $addModal = false;
 
     public function mount(): void
@@ -24,11 +30,12 @@ class PermissionManager extends Component
         $this->loadPermissions(); // agora sim, depois de carregar tudo
     }
 
-    private function loadInit() {
+    private function loadInit()
+    {
         $this->roles = Role::get();
         $this->allPermissions = Permission::all()->pluck('name');
 
-        if (!$this->selectedRole && $this->roles->isNotEmpty()) {
+        if (! $this->selectedRole && $this->roles->isNotEmpty()) {
             $this->selectedRole = $this->roles->first()->id;
         }
     }
@@ -38,7 +45,8 @@ class PermissionManager extends Component
         $this->loadPermissions();
     }
 
-    public function novaPermissao() {
+    public function novaPermissao()
+    {
 
         Role::create(['name' => $this->permissao, 'guard_name' => 'web']);
         $this->toast('success', 'Nova permissão criada com sucesso.', '', 'bottom', 'fas.save', 'alert-success');
@@ -94,12 +102,10 @@ class PermissionManager extends Component
                 return collect($actions)
                     ->filter()
                     ->keys()
-                    ->map(fn($action) => "{$module}.{$action}");
+                    ->map(fn ($action) => "{$module}.{$action}");
             })
             ->values()
             ->all();
-
-
 
         $role->syncPermissions($selectedPermissions);
 

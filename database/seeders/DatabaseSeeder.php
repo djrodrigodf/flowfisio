@@ -23,5 +23,26 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PreRegistrationSeeder::class);
         $this->call(RolePermissionSeeder::class);
+
+        $this->call([
+            SpecialtySeeder::class,
+            TreatmentTypeSeeder::class,
+            LocationSeeder::class,
+            RoomSeeder::class,
+            // M1
+            InsuranceSeeder::class,
+            TreatmentSeeder::class,
+            TreatmentPriceSeeder::class,
+            TreatmentPayoutSeeder::class,
+            // M2
+            ProfessionalSeeder::class,
+            ProfessionalRoomSeeder::class,
+            ProfessionalScheduleSeeder::class,
+            ProfessionalTimeoffSeeder::class,
+            ScheduleBlockSeeder::class,
+            // M3
+            PatientSeeder::class,
+        ]);
+
     }
 }

@@ -11,7 +11,8 @@ class PartnerScheduleManager extends Component
 {
     use Toast;
 
-    public int $partner_id ;
+    public int $partner_id;
+
     public array $schedules = [];
 
     protected $rules = [
@@ -78,7 +79,6 @@ class PartnerScheduleManager extends Component
                     ->delete();
             }
         }
-
 
         $this->toast('success', 'Horários salvos com sucesso.', '', 'bottom', 'fas.save', 'alert-success');
         $this->dispatch('closeScheduleModal');
